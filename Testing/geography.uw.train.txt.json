@@ -1,0 +1,2202 @@
+{
+    "query1": {
+        "HumanQuery": "what is the elevation of the highest point in the usa",
+        "SQLQuery": "SELECT max(highlow.highest_elevation) FROM highlow;"
+    },
+    "query2": {
+        "HumanQuery": "what is the size of the largest state in the usa",
+        "SQLQuery": "SELECT max(state.area) FROM state;"
+    },
+    "query3": {
+        "HumanQuery": "what state has highest elevation",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query4": {
+        "HumanQuery": "what is the capital of the state that borders the state that borders texas",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name IN (SELECT border_info.border FROM border_info WHERE border_info.state_name IN (SELECT border_info.border FROM border_info WHERE border_info.state_name = 'texas'));"
+    },
+    "query5": {
+        "HumanQuery": "how long is the mississippi river in miles",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='mississippi';"
+    },
+    "query6": {
+        "HumanQuery": "which rivers run through states bordering new mexico",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='new mexico');"
+    },
+    "query7": {
+        "HumanQuery": "how many states does the colorado river flow through",
+        "SQLQuery": "SELECT count(river.traverse) FROM river WHERE river.river_name='colorado';"
+    },
+    "query8": {
+        "HumanQuery": "what are the populations of all the major cities in montana",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.state_name='montana' AND city.population>150000;"
+    },
+    "query9": {
+        "HumanQuery": "which state has the smallest area that borders texas ?",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state WHERE state.state_name IN (SELECT border_info.border FROM border_info WHERE border_info.state_name = 'texas') ) AND state.state_name IN ((SELECT border_info.border FROM border_info WHERE border_info.state_name = 'texas'));"
+    },
+    "query10": {
+        "HumanQuery": "what is the elevation of death valley",
+        "SQLQuery": "SELECT highlow.lowest_elevation FROM highlow WHERE highlow.lowest_point='death valley';"
+    },
+    "query11": {
+        "HumanQuery": "what is the state with the lowest population",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.population=(SELECT min(state.population) FROM state);"
+    },
+    "query12": {
+        "HumanQuery": "how many people live in california",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='california';"
+    },
+    "query13": {
+        "HumanQuery": "what is the river that cross over ohio",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='ohio';"
+    },
+    "query14": {
+        "HumanQuery": "what is the height of the highest mountain in texas",
+        "SQLQuery": "SELECT max(distinct highlow.highest_elevation) FROM highlow WHERE highlow.state_name='texas';"
+    },
+    "query15": {
+        "HumanQuery": "what is the smallest state bordering ohio",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='ohio') AND state.area=(SELECT min(state.area) FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='ohio' ));"
+    },
+    "query16": {
+        "HumanQuery": "what is the biggest city in nebraska",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='nebraska' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='nebraska');"
+    },
+    "query17": {
+        "HumanQuery": "how long is the mississippi",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='mississippi';"
+    },
+    "query18": {
+        "HumanQuery": "what is the highest point in the united states",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.highest_elevation = (SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query19": {
+        "HumanQuery": "how many rivers run through the states bordering colorado",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='colorado');"
+    },
+    "query20": {
+        "HumanQuery": "what is the smallest city in hawaii",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='hawaii' AND city.population=(SELECT min(city.population) FROM city WHERE city.state_name='hawaii');"
+    },
+    "query21": {
+        "HumanQuery": "what is the size of the capital of texas",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name=(SELECT state.capital FROM state WHERE state.state_name = 'texas');"
+    },
+    "query22": {
+        "HumanQuery": "what are the major cities of the us",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population>150000;"
+    },
+    "query23": {
+        "HumanQuery": "what river flows through kansas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='kansas';"
+    },
+    "query24": {
+        "HumanQuery": "what is the most populated capital in the usa",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city,state WHERE city.city_name=state.capital);"
+    },
+    "query25": {
+        "HumanQuery": "what are the lakes in states bordering texas",
+        "SQLQuery": "SELECT lake.lake_name FROM lake WHERE lake.state_name IN (SELECT border_info.border FROM border_info WHERE border_info.state_name = 'texas');"
+    },
+    "query26": {
+        "HumanQuery": "of the states washed by the mississippi river which has the lowest point",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.lowest_elevation=(SELECT min(highlow.lowest_elevation) FROM highlow,river WHERE(river.river_name='mississippi') AND(river.traverse=highlow.state_name));"
+    },
+    "query27": {
+        "HumanQuery": "what rivers run through the state with the lowest point in the usa ?",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN ( SELECT highlow.state_name FROM highlow WHERE highlow.lowest_elevation=(SELECT min(highlow.lowest_elevation) FROM highlow));"
+    },
+    "query28": {
+        "HumanQuery": "which rivers flow through alaska",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='alaska';"
+    },
+    "query29": {
+        "HumanQuery": "what is the lowest point in texas",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='texas';"
+    },
+    "query30": {
+        "HumanQuery": "what is the largest city in states that border california",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name IN(SELECT border_info.state_name FROM border_info WHERE border_info.border='california') AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name IN(SELECT border_info.state_name FROM border_info WHERE border_info.border='california'));"
+    },
+    "query31": {
+        "HumanQuery": "what is the longest river in the us",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query32": {
+        "HumanQuery": "what is the average population of the us by state",
+        "SQLQuery": "SELECT avg(state.population) FROM state;"
+    },
+    "query33": {
+        "HumanQuery": "what is the capital of washington",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='washington';"
+    },
+    "query34": {
+        "HumanQuery": "what is the longest river in the state with the highest point",
+        "SQLQuery": "SELECT river.river_name FROM river,highlow WHERE river.traverse=highlow.state_name AND highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow) ORDER BY river.length DESC LIMIT 1;"
+    },
+    "query35": {
+        "HumanQuery": "what mountains are in alaska",
+        "SQLQuery": "SELECT mountain.mountain_name FROM mountain WHERE mountain.state_name='alaska';"
+    },
+    "query36": {
+        "HumanQuery": "how long is rio grande",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='rio grande';"
+    },
+    "query37": {
+        "HumanQuery": "which state contains most rivers ?",
+        "SQLQuery": "SELECT river.traverse FROM river,state WHERE river.traverse=state.state_name GROUP BY state.state_name ORDER BY count(river.river_name) DESC LIMIT 1 ;"
+    },
+    "query38": {
+        "HumanQuery": "what is the highest point in rhode island",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='rhode island';"
+    },
+    "query39": {
+        "HumanQuery": "state the state with the largest area",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query40": {
+        "HumanQuery": "how many cities named austin are there in the usa",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.city_name='austin';"
+    },
+    "query41": {
+        "HumanQuery": "what are the major lakes in united states ",
+        "SQLQuery": "SELECT lake.lake_name FROM lake;"
+    },
+    "query42": {
+        "HumanQuery": "which state is the city denver located in",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='denver';"
+    },
+    "query43": {
+        "HumanQuery": "how many people live in austin",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='austin';"
+    },
+    "query44": {
+        "HumanQuery": "how many states in the us does the shortest river run through",
+        "SQLQuery": "SELECT count(distinct river.traverse) FROM river WHERE river.length=(SELECT min(distinct river.length) FROM river);"
+    },
+    "query45": {
+        "HumanQuery": "what states border hawaii",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='hawaii';"
+    },
+    "query46": {
+        "HumanQuery": "what is the population density in the state with capital austin",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.capital='austin';"
+    },
+    "query47": {
+        "HumanQuery": "what is the total population of the states that border texas",
+        "SQLQuery": "SELECT sum(state.population) FROM state ,border_info WHERE state.state_name=border_info.border AND border_info.state_name='texas';"
+    },
+    "query48": {
+        "HumanQuery": "where is mount whitney",
+        "SQLQuery": "SELECT mountain.state_name FROM mountain WHERE mountain.mountain_name='whitney';"
+    },
+    "query49": {
+        "HumanQuery": "what is the length of the colorado river in texas",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='colorado' AND river.traverse='texas';"
+    },
+    "query50": {
+        "HumanQuery": "how many states does the missouri river run through",
+        "SQLQuery": "SELECT count(river.traverse) FROM river WHERE river.river_name='missouri';"
+    },
+    "query51": {
+        "HumanQuery": "what is the longest river in pennsylvania",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='pennsylvania' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='pennsylvania');"
+    },
+    "query52": {
+        "HumanQuery": "what are the major cities in kansas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='kansas' AND city.population>150000;"
+    },
+    "query53": {
+        "HumanQuery": "which states does the missouri river pass through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='missouri';"
+    },
+    "query54": {
+        "HumanQuery": "what capital is the largest in the us",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city,state WHERE city.city_name=state.capital);"
+    },
+    "query55": {
+        "HumanQuery": "what cities in texas have the highest number of citizens",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='texas');"
+    },
+    "query56": {
+        "HumanQuery": "how many people stay in utah",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='utah';"
+    },
+    "query57": {
+        "HumanQuery": "what are the biggest rivers in texas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='texas' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='texas');"
+    },
+    "query58": {
+        "HumanQuery": "which states border no other states ?",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name NOT IN(SELECT border_info.state_name FROM border_info);"
+    },
+    "query59": {
+        "HumanQuery": "which states have a major city named austin ?",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='austin' AND city.population > 150000;"
+    },
+    "query60": {
+        "HumanQuery": "which state has the red river",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='red';"
+    },
+    "query61": {
+        "HumanQuery": "what is the population of california",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='california';"
+    },
+    "query62": {
+        "HumanQuery": "what states have rivers running through them ?",
+        "SQLQuery": "SELECT river.traverse FROM river;"
+    },
+    "query63": {
+        "HumanQuery": "what is the largest state in the us",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query64": {
+        "HumanQuery": "how many major cities are there in oregon",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='oregon' AND city.population>150000;"
+    },
+    "query65": {
+        "HumanQuery": "what is the highest point of the state with the largest area",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow,state WHERE highlow.state_name=state.state_name AND state.state_name IN(SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state));"
+    },
+    "query66": {
+        "HumanQuery": "how many major cities are in texas",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='texas' AND city.population>150000;"
+    },
+    "query67": {
+        "HumanQuery": "what is the longest river in america",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query68": {
+        "HumanQuery": "what is the highest point in texas",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='texas';"
+    },
+    "query69": {
+        "HumanQuery": "what are the major cities in oklahoma",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='oklahoma' AND city.population>150000;"
+    },
+    "query70": {
+        "HumanQuery": "name the longest river in us",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query71": {
+        "HumanQuery": "what is the shortest river in nebraska",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='nebraska' AND river.length=(SELECT min(river.length) FROM river WHERE river.traverse='nebraska');"
+    },
+    "query72": {
+        "HumanQuery": "what is the area of idaho",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='idaho';"
+    },
+    "query73": {
+        "HumanQuery": "what is the lowest point in the state of texas",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='texas';"
+    },
+    "query74": {
+        "HumanQuery": "what states border rhode island",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='rhode island';"
+    },
+    "query75": {
+        "HumanQuery": "what is the most populous state in the us",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state);"
+    },
+    "query76": {
+        "HumanQuery": "what states border kentucky",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='kentucky';"
+    },
+    "query77": {
+        "HumanQuery": "what rivers run through maine",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='maine';"
+    },
+    "query78": {
+        "HumanQuery": "what are the populations of the states through which the mississippi river run",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query79": {
+        "HumanQuery": "what rivers do not run through tennessee",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.river_name NOT IN(SELECT river.river_name FROM river WHERE river.traverse='tennessee');"
+    },
+    "query80": {
+        "HumanQuery": "what is the most populous city in texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='texas');"
+    },
+    "query81": {
+        "HumanQuery": "could you tell me what is the highest point in the state of oregon",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='oregon';"
+    },
+    "query82": {
+        "HumanQuery": "what is the longest river in the united states",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query83": {
+        "HumanQuery": "which states border new york",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='new york';"
+    },
+    "query84": {
+        "HumanQuery": "which is the shortest river",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query85": {
+        "HumanQuery": "what states border the states with the most cities ?",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN ( SELECT tmp1.state_name FROM (SELECT city.state_name, count(1) AS cnt1 FROM city GROUP BY city.state_name) tmp1 WHERE cnt1 = (SELECT max(cnt) FROM (SELECT count(1) AS cnt FROM city GROUP BY city.state_name) tmp))"
+    },
+    "query86": {
+        "HumanQuery": "what state has the capital salem",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.capital='salem';"
+    },
+    "query87": {
+        "HumanQuery": "what rivers run through colorado",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='colorado';"
+    },
+    "query88": {
+        "HumanQuery": "what state has the highest population",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state);"
+    },
+    "query89": {
+        "HumanQuery": "what is the highest point in kansas",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='kansas';"
+    },
+    "query90": {
+        "HumanQuery": "what river runs through the most states",
+        "SQLQuery": "SELECT river.river_name FROM river GROUP BY(river.river_name) ORDER BY count(distinct river.traverse) DESC LIMIT 1;"
+    },
+    "query91": {
+        "HumanQuery": "what is the longest river in mississippi",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='mississippi' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='mississippi');"
+    },
+    "query92": {
+        "HumanQuery": "how many states border colorado and border new mexico",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='colorado' AND border_info.border IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='new mexico');"
+    },
+    "query93": {
+        "HumanQuery": "name the rivers in arkansas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='arkansas';"
+    },
+    "query94": {
+        "HumanQuery": "what is the largest state",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query95": {
+        "HumanQuery": "what state has the most major rivers running through it ?",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.length > 750 GROUP BY river.traverse ORDER BY count(1) DESC LIMIT 1;"
+    },
+    "query96": {
+        "HumanQuery": "what is the capital of vermont",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='vermont';"
+    },
+    "query97": {
+        "HumanQuery": "what state is pittsburgh in",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='pittsburgh';"
+    },
+    "query98": {
+        "HumanQuery": "how big is alaska",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='alaska';"
+    },
+    "query99": {
+        "HumanQuery": "what states border texas",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='texas';"
+    },
+    "query100": {
+        "HumanQuery": "which river runs through the most states ?",
+        "SQLQuery": "SELECT river.river_name FROM river GROUP BY(river.river_name) ORDER BY count(distinct river.traverse) DESC LIMIT 1;"
+    },
+    "query101": {
+        "HumanQuery": "which state has the least population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT min(state.density) FROM state);"
+    },
+    "query102": {
+        "HumanQuery": "what river flows through colorado",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='colorado';"
+    },
+    "query103": {
+        "HumanQuery": "how many people live in new hampshire",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='new hampshire';"
+    },
+    "query104": {
+        "HumanQuery": "which states border colorado",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='colorado';"
+    },
+    "query105": {
+        "HumanQuery": "how long is the shortest river in the usa",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query106": {
+        "HumanQuery": "what are the capitals of states that border texas",
+        "SQLQuery": "SELECT state.capital FROM state,border_info WHERE border_info.border=state.state_name AND border_info.state_name='texas';"
+    },
+    "query107": {
+        "HumanQuery": "what are the neighboring states for michigan",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='michigan';"
+    },
+    "query108": {
+        "HumanQuery": "what rivers are in new mexico",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='new mexico';"
+    },
+    "query109": {
+        "HumanQuery": "how big is north dakota",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='north dakota';"
+    },
+    "query110": {
+        "HumanQuery": "how many states does missouri border",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='missouri';"
+    },
+    "query111": {
+        "HumanQuery": "what are the major cities in rhode island",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='rhode island' AND city.population>150000;"
+    },
+    "query112": {
+        "HumanQuery": "what is the biggest state in the usa",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query113": {
+        "HumanQuery": "how many citizens live in california",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='california';"
+    },
+    "query114": {
+        "HumanQuery": "how many cities does the usa have",
+        "SQLQuery": "SELECT count(city.city_name) FROM city;"
+    },
+    "query115": {
+        "HumanQuery": "what is the highest point in the state with the most rivers",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE(highlow.state_name=(SELECT river.traverse FROM river,state WHERE river.traverse=state.state_name GROUP BY state.state_name ORDER BY count(river.river_name) DESC LIMIT 1));"
+    },
+    "query116": {
+        "HumanQuery": "what is the smallest city of the smallest state in the us",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT min(city.population) FROM city WHERE city.state_name IN(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state))) AND city.state_name IN(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state));"
+    },
+    "query117": {
+        "HumanQuery": "what is the population of maine",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='maine';"
+    },
+    "query118": {
+        "HumanQuery": "what is the biggest city in oregon",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='oregon' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='oregon');"
+    },
+    "query119": {
+        "HumanQuery": "what is the biggest state in continental us",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query120": {
+        "HumanQuery": "what are the high points of states surrounding mississippi",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='mississippi');"
+    },
+    "query121": {
+        "HumanQuery": "what state has the sparsest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT min(state.density) FROM state);"
+    },
+    "query122": {
+        "HumanQuery": "what is the size of texas",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='texas';"
+    },
+    "query123": {
+        "HumanQuery": "what is the shortest river",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query124": {
+        "HumanQuery": "can you tell me the capital of texas",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='texas';"
+    },
+    "query125": {
+        "HumanQuery": "in which state is rochester",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='rochester';"
+    },
+    "query126": {
+        "HumanQuery": "what rivers run through west virginia",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='west virginia';"
+    },
+    "query127": {
+        "HumanQuery": "what is the state that contains the highest point",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query128": {
+        "HumanQuery": "what is the biggest city in usa",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query129": {
+        "HumanQuery": "how many rivers in texas are longer than the red",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='texas' AND river.length > all(SELECT river.length FROM river WHERE river.river_name='red');"
+    },
+    "query130": {
+        "HumanQuery": "how long is the rio grande river",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='rio grande';"
+    },
+    "query131": {
+        "HumanQuery": "what is the adjacent state of california",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='california';"
+    },
+    "query132": {
+        "HumanQuery": "what states border new hampshire",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='new hampshire';"
+    },
+    "query133": {
+        "HumanQuery": "what is the longest river that flows through colorado",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='colorado' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='colorado');"
+    },
+    "query134": {
+        "HumanQuery": "how many states does iowa border",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='iowa';"
+    },
+    "query135": {
+        "HumanQuery": "which states does the mississippi river run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='mississippi';"
+    },
+    "query136": {
+        "HumanQuery": "what is the area of new mexico",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='new mexico';"
+    },
+    "query137": {
+        "HumanQuery": "how many people live in montana",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='montana';"
+    },
+    "query138": {
+        "HumanQuery": "which states border the longest river in the usa",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN (SELECT river.traverse FROM river WHERE river.length = (SELECT max(river.length) FROM river)  );"
+    },
+    "query139": {
+        "HumanQuery": "what state has the most cities ?",
+        "SQLQuery": "SELECT city.state_name FROM city GROUP BY city.state_name ORDER BY count(1) DESC LIMIT 1;"
+    },
+    "query140": {
+        "HumanQuery": "what river traverses the most states ?",
+        "SQLQuery": "SELECT river.river_name FROM river GROUP BY(river.river_name) ORDER BY count(distinct river.traverse) DESC LIMIT 1;"
+    },
+    "query141": {
+        "HumanQuery": "what is the smallest city in washington",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='washington' AND city.population=(SELECT min(city.population) FROM city WHERE city.state_name='washington');"
+    },
+    "query142": {
+        "HumanQuery": "what is the largest state traversed by the mississippi river",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi') AND state.area=(SELECT max(state.area) FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi'));"
+    },
+    "query143": {
+        "HumanQuery": "what state borders most other states ?",
+        "SQLQuery": "SELECT border_info.border FROM border_info GROUP BY border_info.border having count(1) = (SELECT max(cnt1) FROM (SELECT border_info.border, count(1) AS cnt1 FROM border_info GROUP BY border_info.border) tmp);"
+    },
+    "query144": {
+        "HumanQuery": "how many big cities are in pennsylvania",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='pennsylvania' AND city.population>150000;"
+    },
+    "query145": {
+        "HumanQuery": "what is the shortest river in iowa",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='iowa' AND river.length=(SELECT min(river.length) FROM river WHERE river.traverse='iowa');"
+    },
+    "query146": {
+        "HumanQuery": "what are the rivers of montana",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='montana';"
+    },
+    "query147": {
+        "HumanQuery": "what is the population of arizona",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='arizona';"
+    },
+    "query148": {
+        "HumanQuery": "how many major cities are in states bordering utah",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='utah') AND city.population>150000;"
+    },
+    "query149": {
+        "HumanQuery": "what state contains the highest point in the us",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query150": {
+        "HumanQuery": "what are the major cities in texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population>150000;"
+    },
+    "query151": {
+        "HumanQuery": "how many cities are there in us",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.population>150000;"
+    },
+    "query152": {
+        "HumanQuery": "what is the largest city in wisconsin",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='wisconsin' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='wisconsin');"
+    },
+    "query153": {
+        "HumanQuery": "what are the populations of the states through which the mississippi run",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query154": {
+        "HumanQuery": "number of citizens in boulder",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boulder';"
+    },
+    "query155": {
+        "HumanQuery": "what is the population of austin texas",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='austin' AND city.state_name='texas';"
+    },
+    "query156": {
+        "HumanQuery": "how many states does the mississippi run through",
+        "SQLQuery": "SELECT count(river.traverse) FROM river WHERE river.river_name='mississippi';"
+    },
+    "query157": {
+        "HumanQuery": "how many citizens in boulder",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boulder';"
+    },
+    "query158": {
+        "HumanQuery": "what is the biggest city in wyoming",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='wyoming' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='wyoming');"
+    },
+    "query159": {
+        "HumanQuery": "name all the rivers in colorado",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='colorado';"
+    },
+    "query160": {
+        "HumanQuery": "what is the area of seattle",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='seattle';"
+    },
+    "query161": {
+        "HumanQuery": "what is the smallest state through which the longest river runs",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.length=(SELECT max(river.length) FROM river)) AND state.area=(SELECT min(state.area) FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.length=(SELECT max(river.length) FROM river)));"
+    },
+    "query162": {
+        "HumanQuery": "what states border states that border states that border florida",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='florida'));"
+    },
+    "query163": {
+        "HumanQuery": "how many citizens in alabama",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='alabama';"
+    },
+    "query164": {
+        "HumanQuery": "which is the lowest point of the states that the mississippi runs through",
+        "SQLQuery": "SELECT highlow.lowest_elevation FROM highlow,river WHERE river.river_name='mississippi'  AND river.traverse=highlow.state_name;"
+    },
+    "query165": {
+        "HumanQuery": "how many rivers are in colorado",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='colorado';"
+    },
+    "query166": {
+        "HumanQuery": "how many states have major rivers",
+        "SQLQuery": "SELECT count(river.traverse) FROM river WHERE river.length>750;"
+    },
+    "query167": {
+        "HumanQuery": "what are the populations of the states through which the mississippi river runs",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query168": {
+        "HumanQuery": "what is the area of texas",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='texas';"
+    },
+    "query169": {
+        "HumanQuery": "what is the total area of the usa",
+        "SQLQuery": "SELECT sum(state.area) FROM state;"
+    },
+    "query170": {
+        "HumanQuery": "through which states does the mississippi flow",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='mississippi';"
+    },
+    "query171": {
+        "HumanQuery": "what are the major cities in montana",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='montana' AND city.population>150000;"
+    },
+    "query172": {
+        "HumanQuery": "how many states border on the state whose capital is boston",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name=(SELECT state.state_name FROM state WHERE state.capital='boston');"
+    },
+    "query173": {
+        "HumanQuery": "what is the largest state capital in population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city,state WHERE city.city_name=state.capital);"
+    },
+    "query174": {
+        "HumanQuery": "which state has the longest river",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query175": {
+        "HumanQuery": "how many major cities are in florida",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='florida' AND city.population>150000;"
+    },
+    "query176": {
+        "HumanQuery": "show major cities in colorado",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='colorado' AND city.population>150000;"
+    },
+    "query177": {
+        "HumanQuery": "how many states does the colorado river run through",
+        "SQLQuery": "SELECT count(river.traverse) FROM river WHERE river.river_name='colorado';"
+    },
+    "query178": {
+        "HumanQuery": "how many states border texas",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='texas';"
+    },
+    "query179": {
+        "HumanQuery": "what are the major cities in delaware",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='delaware' AND city.population>150000;"
+    },
+    "query180": {
+        "HumanQuery": "what state borders the state with the smallest population",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT state.state_name FROM state WHERE state.population=(SELECT min(state.population) FROM state));"
+    },
+    "query181": {
+        "HumanQuery": "how many rivers are there in texas",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='texas';"
+    },
+    "query182": {
+        "HumanQuery": "what state has the most people",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state);"
+    },
+    "query183": {
+        "HumanQuery": "what are the states that border the state with the greatest population",
+        "SQLQuery": "SELECT border_info.state_name FROM state,border_info WHERE state.state_name=border_info.border AND state.population=(SELECT max(state.population) FROM state);"
+    },
+    "query184": {
+        "HumanQuery": "what river runs through illinois",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='illinois';"
+    },
+    "query185": {
+        "HumanQuery": "what is the highest point in the state with the capital des moines",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name IN(SELECT state.state_name FROM state WHERE state.capital='des moines');"
+    },
+    "query186": {
+        "HumanQuery": "what is the average population per square km in pennsylvania",
+        "SQLQuery": "SELECT state.population/state.area FROM state WHERE state.state_name='pennsylvania';"
+    },
+    "query187": {
+        "HumanQuery": "what is largest capital",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city,state WHERE city.city_name=state.capital);"
+    },
+    "query188": {
+        "HumanQuery": "how many people live in kansas",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='kansas';"
+    },
+    "query189": {
+        "HumanQuery": "what is the capital of new hampshire",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='new hampshire';"
+    },
+    "query190": {
+        "HumanQuery": "what states border missouri",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='missouri';"
+    },
+    "query191": {
+        "HumanQuery": "what rivers run through louisiana",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='louisiana';"
+    },
+    "query192": {
+        "HumanQuery": "what state has the largest city",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query193": {
+        "HumanQuery": "name the 50 capitals in the usa",
+        "SQLQuery": "SELECT distinct state.capital FROM state;"
+    },
+    "query194": {
+        "HumanQuery": "what are the major cities in ohio",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='ohio' AND city.population>150000;"
+    },
+    "query195": {
+        "HumanQuery": "what is the largest state bordering texas",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas') AND state.area=(SELECT max(state.area) FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas'));"
+    },
+    "query196": {
+        "HumanQuery": "what states border georgia",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='georgia';"
+    },
+    "query197": {
+        "HumanQuery": "what is the largest city in a state that borders texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas') AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas'));"
+    },
+    "query198": {
+        "HumanQuery": "what states capital is dover",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.capital='dover';"
+    },
+    "query199": {
+        "HumanQuery": "what states have cities named austin",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='austin';"
+    },
+    "query200": {
+        "HumanQuery": "what state has the shortest river",
+        "SQLQuery": "SELECT distinct river.traverse FROM river WHERE river.length=(SELECT min(distinct river.length) FROM river);"
+    },
+    "query201": {
+        "HumanQuery": "what states have towns named springfield",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='springfield';"
+    },
+    "query202": {
+        "HumanQuery": "what is the highest point in new mexico",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='new mexico';"
+    },
+    "query203": {
+        "HumanQuery": "which states border states through which the mississippi traverses ?",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query204": {
+        "HumanQuery": "what state has the largest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query205": {
+        "HumanQuery": "what states in the united states have a city of springfield",
+        "SQLQuery": "SELECT city.state_name FROM city,state WHERE city.state_name=state.state_name AND city.city_name='springfield';"
+    },
+    "query206": {
+        "HumanQuery": "what rivers flow through states that border the state with the largest population",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state )));"
+    },
+    "query207": {
+        "HumanQuery": "how many states border at least one other state",
+        "SQLQuery": "SELECT count(distinct border_info.state_name) FROM border_info;"
+    },
+    "query208": {
+        "HumanQuery": "what are the populations of states through which the mississippi run",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query209": {
+        "HumanQuery": "what are the major cities in north carolina",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='north carolina' AND city.population>150000;"
+    },
+    "query210": {
+        "HumanQuery": "how many states border the largest state",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name=(SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state));"
+    },
+    "query211": {
+        "HumanQuery": "what is the major cities in montana",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='montana' AND city.population>150000;"
+    },
+    "query212": {
+        "HumanQuery": "how many people live in texas",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='texas';"
+    },
+    "query213": {
+        "HumanQuery": "what is the tallest mountain in america",
+        "SQLQuery": "SELECT mountain.mountain_name FROM mountain WHERE mountain.mountain_altitude=(SELECT max(mountain.mountain_altitude) FROM mountain);"
+    },
+    "query214": {
+        "HumanQuery": "people in boulder",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boulder';"
+    },
+    "query215": {
+        "HumanQuery": "what is the population density of texas",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.state_name='texas';"
+    },
+    "query216": {
+        "HumanQuery": "what is the capital of pennsylvania",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='pennsylvania';"
+    },
+    "query217": {
+        "HumanQuery": "how many states have cities or towns named springfield",
+        "SQLQuery": "SELECT count(city.state_name) FROM city WHERE city.city_name='springfield';"
+    },
+    "query218": {
+        "HumanQuery": "how many rivers are there in us",
+        "SQLQuery": "SELECT count(river.river_name) FROM river;"
+    },
+    "query219": {
+        "HumanQuery": "what states does the missouri river run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='missouri';"
+    },
+    "query220": {
+        "HumanQuery": "how many people live in san francisco",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='san francisco';"
+    },
+    "query221": {
+        "HumanQuery": "which states border texas",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='texas';"
+    },
+    "query222": {
+        "HumanQuery": "what is the capital of indiana",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='indiana';"
+    },
+    "query223": {
+        "HumanQuery": "what state has the smallest capital ?",
+        "SQLQuery": "(SELECT city.state_name FROM city WHERE city.population = (SELECT min(tmp.population) FROM (SELECT city.population FROM city, state WHERE state.capital = city.city_name) tmp) );"
+    },
+    "query224": {
+        "HumanQuery": "which states does the missouri river run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='missouri';"
+    },
+    "query225": {
+        "HumanQuery": "which states border arizona",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='arizona';"
+    },
+    "query226": {
+        "HumanQuery": "what is the lowest point of the us",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.lowest_elevation = (SELECT min(highlow.lowest_elevation) FROM highlow);"
+    },
+    "query227": {
+        "HumanQuery": "what is the longest river",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query228": {
+        "HumanQuery": "what state has the largest urban population ?",
+        "SQLQuery": "SELECT city.state_name FROM city GROUP BY city.state_name ORDER BY sum(city.population) DESC LIMIT 1;"
+    },
+    "query229": {
+        "HumanQuery": "what is the capital of the state texas",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='texas';"
+    },
+    "query230": {
+        "HumanQuery": "what state is des moines located in",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='des moines';"
+    },
+    "query231": {
+        "HumanQuery": "what is the largest city in minnesota by population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='minnesota' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='minnesota');"
+    },
+    "query232": {
+        "HumanQuery": "what states border arkansas",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='arkansas';"
+    },
+    "query233": {
+        "HumanQuery": "how many rivers run through texas",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='texas';"
+    },
+    "query234": {
+        "HumanQuery": "which states does the colorado river run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='colorado';"
+    },
+    "query235": {
+        "HumanQuery": "what are the major cities in the largest state",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population>150000 AND city.state_name=(SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state));"
+    },
+    "query236": {
+        "HumanQuery": "what states does the mississippi run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='mississippi';"
+    },
+    "query237": {
+        "HumanQuery": "what is the population of minnesota",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='minnesota';"
+    },
+    "query238": {
+        "HumanQuery": "what is the biggest state",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query239": {
+        "HumanQuery": "what is the population of boston massachusetts",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boston' AND city.state_name='massachusetts';"
+    },
+    "query240": {
+        "HumanQuery": "what states are next to the mississippi ?",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='mississippi';"
+    },
+    "query241": {
+        "HumanQuery": "what states does the shortest river run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query242": {
+        "HumanQuery": "what is the capital of maine",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='maine';"
+    },
+    "query243": {
+        "HumanQuery": "what is the largest state in usa",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query244": {
+        "HumanQuery": "what state borders the least states",
+        "SQLQuery": "SELECT state.state_name FROM state left outer join border_info ON state.state_name = border_info.state_name GROUP BY state.state_name having count(border_info.border) = (SELECT min(cnt) FROM (SELECT state.state_name, count(border_info.border) AS cnt FROM state left outer join border_info ON state.state_name = border_info.state_name GROUP BY state.state_name) tmp);"
+    },
+    "query245": {
+        "HumanQuery": "what is the highest elevation in south carolina",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow WHERE highlow.state_name='south carolina';"
+    },
+    "query246": {
+        "HumanQuery": "what state borders michigan",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='michigan';"
+    },
+    "query247": {
+        "HumanQuery": "what is the population of texas",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='texas';"
+    },
+    "query248": {
+        "HumanQuery": "what states have a city named austin",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='austin';"
+    },
+    "query249": {
+        "HumanQuery": "where is springfield",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='springfield';"
+    },
+    "query250": {
+        "HumanQuery": "show me all the major lakes in the us ",
+        "SQLQuery": "SELECT lake.lake_name FROM lake;"
+    },
+    "query251": {
+        "HumanQuery": "what is the population of rhode island",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='rhode island';"
+    },
+    "query252": {
+        "HumanQuery": "how many states are in the united states",
+        "SQLQuery": "SELECT count(state.state_name) FROM state;"
+    },
+    "query253": {
+        "HumanQuery": "which states border hawaii",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='hawaii';"
+    },
+    "query254": {
+        "HumanQuery": "how many states border alaska",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='alaska';"
+    },
+    "query255": {
+        "HumanQuery": "what is the number of neighboring states for kentucky",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='kentucky';"
+    },
+    "query256": {
+        "HumanQuery": "what are the major cities in wyoming",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='wyoming' AND city.population>150000;"
+    },
+    "query257": {
+        "HumanQuery": "what is the name of the state with the lowest point",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.lowest_elevation=(SELECT min(highlow.lowest_elevation) FROM highlow);"
+    },
+    "query258": {
+        "HumanQuery": "what is the biggest city in georgia",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='georgia' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='georgia');"
+    },
+    "query259": {
+        "HumanQuery": "what rivers run through the states that border the state with the capital atlanta",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT state.state_name FROM state WHERE state.capital='atlanta'));"
+    },
+    "query260": {
+        "HumanQuery": "what is the population of the capital of the largest state through which the mississippi runs",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name=(SELECT state.capital FROM state WHERE state.area=(SELECT max(state.area) FROM state,river WHERE river.traverse=state.state_name AND river.river_name='mississippi'));"
+    },
+    "query261": {
+        "HumanQuery": "which state is kalamazoo in",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='kalamazoo';"
+    },
+    "query262": {
+        "HumanQuery": "what is the shortest river in texas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='texas' AND river.length=(SELECT min(river.length) FROM river WHERE river.traverse='texas');"
+    },
+    "query263": {
+        "HumanQuery": "what is the longest river in california",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='california' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='california');"
+    },
+    "query264": {
+        "HumanQuery": "which states border alaska",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='alaska';"
+    },
+    "query265": {
+        "HumanQuery": "what is the population of austin",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='austin';"
+    },
+    "query266": {
+        "HumanQuery": "how many people live in hawaii",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='hawaii';"
+    },
+    "query267": {
+        "HumanQuery": "how many rivers are there in idaho",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='idaho';"
+    },
+    "query268": {
+        "HumanQuery": "what is the highest point in wyoming",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='wyoming';"
+    },
+    "query269": {
+        "HumanQuery": "what is the population of idaho",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='idaho';"
+    },
+    "query270": {
+        "HumanQuery": "how many people live in kalamazoo",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='kalamazoo';"
+    },
+    "query271": {
+        "HumanQuery": "how many rivers does alaska have",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='alaska';"
+    },
+    "query272": {
+        "HumanQuery": "what are the rivers in the state of indiana",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='indiana';"
+    },
+    "query273": {
+        "HumanQuery": "what is the lowest point in oregon",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='oregon';"
+    },
+    "query274": {
+        "HumanQuery": "where is scotts valley",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='scotts valley';"
+    },
+    "query275": {
+        "HumanQuery": "how high are the highest points of all the states",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow;"
+    },
+    "query276": {
+        "HumanQuery": "what is the capital of the alabama state",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='alabama';"
+    },
+    "query277": {
+        "HumanQuery": "what are the major rivers in the us",
+        "SQLQuery": "SELECT river.river_name FROM river;"
+    },
+    "query278": {
+        "HumanQuery": "what is the size of california",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='california';"
+    },
+    "query279": {
+        "HumanQuery": "what is the highest mountain in texas",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='texas';"
+    },
+    "query280": {
+        "HumanQuery": "how high is guadalupe peak",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow WHERE highlow.highest_point='guadalupe peak';"
+    },
+    "query281": {
+        "HumanQuery": "how many people live in washington dc",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='district of columbia';"
+    },
+    "query282": {
+        "HumanQuery": "what is the largest capital",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city,state WHERE city.city_name=state.capital);"
+    },
+    "query283": {
+        "HumanQuery": "how many rivers are called colorado",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.river_name='colorado';"
+    },
+    "query284": {
+        "HumanQuery": "how big is massachusetts",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='massachusetts';"
+    },
+    "query285": {
+        "HumanQuery": "what is the area of the states",
+        "SQLQuery": "SELECT state.area FROM state;"
+    },
+    "query286": {
+        "HumanQuery": "what is the population of new york",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='new york';"
+    },
+    "query287": {
+        "HumanQuery": "how many states border hawaii",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='hawaii';"
+    },
+    "query288": {
+        "HumanQuery": "which state border kentucky",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='kentucky';"
+    },
+    "query289": {
+        "HumanQuery": "where is mount whitney located",
+        "SQLQuery": "SELECT mountain.state_name FROM mountain WHERE mountain.mountain_name='whitney';"
+    },
+    "query290": {
+        "HumanQuery": "what is the highest point in the state with the smallest population",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow,state WHERE highlow.state_name=state.state_name AND state.state_name IN(SELECT state.state_name FROM state WHERE state.population=(SELECT min(state.population) FROM state));"
+    },
+    "query291": {
+        "HumanQuery": "what state has the least population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT min(state.density) FROM state);"
+    },
+    "query292": {
+        "HumanQuery": "how many people live in spokane washington",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='spokane' AND city.state_name='washington';"
+    },
+    "query293": {
+        "HumanQuery": "what states border states that the mississippi runs through",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query294": {
+        "HumanQuery": "which states does the longest river cross",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query295": {
+        "HumanQuery": "which rivers are in alaska",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='alaska';"
+    },
+    "query296": {
+        "HumanQuery": "what cities are located in pennsylvania",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='pennsylvania';"
+    },
+    "query297": {
+        "HumanQuery": "what is the population density of the state with the smallest population",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.population=(SELECT min(state.population) FROM state);"
+    },
+    "query298": {
+        "HumanQuery": "what river flows through texas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='texas';"
+    },
+    "query299": {
+        "HumanQuery": "which state has the largest city",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query300": {
+        "HumanQuery": "what is the longest river that does not run through texas",
+        "SQLQuery": "SELECT distinct river.river_name FROM river WHERE NOT river.traverse='texas' AND river.length=(SELECT max(river.length) FROM river WHERE NOT river.traverse='texas');"
+    },
+    "query301": {
+        "HumanQuery": "what is the area of south carolina",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='south carolina';"
+    },
+    "query302": {
+        "HumanQuery": "what are the largest cities in the states that border the largest state",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population IN (SELECT mx FROM (SELECT state.state_name , max(city.population) AS mx FROM state, city WHERE state.state_name = city.state_name AND state.state_name IN ( SELECT border_info.border FROM border_info GROUP BY border_info.border having count(1) = (SELECT max(cnt1) FROM (SELECT border_info.border, count(1) AS cnt1 FROM border_info GROUP BY border_info.border) tmp1)) GROUP BY state.state_name) tmp2);"
+    },
+    "query303": {
+        "HumanQuery": "what is the shortest river in the usa",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query304": {
+        "HumanQuery": "what is the highest point in the smallest state",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow,state WHERE highlow.state_name=state.state_name AND state.area=(SELECT min(state.area) FROM state);"
+    },
+    "query305": {
+        "HumanQuery": "what state has the smallest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT min(state.density) FROM state);"
+    },
+    "query306": {
+        "HumanQuery": "how many rivers in washington",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='washington';"
+    },
+    "query307": {
+        "HumanQuery": "what is the population of illinois",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='illinois';"
+    },
+    "query308": {
+        "HumanQuery": "what rivers run through arizona",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='arizona';"
+    },
+    "query309": {
+        "HumanQuery": "how many people are in the state of nevada",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='nevada';"
+    },
+    "query310": {
+        "HumanQuery": "what is the average population per square km in the us",
+        "SQLQuery": "SELECT sum(state.population)/sum(state.area) FROM state;"
+    },
+    "query311": {
+        "HumanQuery": "how large is the largest city in alaska",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.state_name='alaska' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='alaska');"
+    },
+    "query312": {
+        "HumanQuery": "how many rivers are in missouri",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='missouri';"
+    },
+    "query313": {
+        "HumanQuery": "list the states",
+        "SQLQuery": "SELECT state.state_name FROM state;"
+    },
+    "query314": {
+        "HumanQuery": "what is the smallest state by area",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state);"
+    },
+    "query315": {
+        "HumanQuery": "what is the most populous city in wyoming",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='wyoming' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='wyoming');"
+    },
+    "query316": {
+        "HumanQuery": "how many people live in new mexico",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='new mexico';"
+    },
+    "query317": {
+        "HumanQuery": "how many rivers do not traverse the state with the capital albany",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse NOT IN(SELECT state.state_name FROM state WHERE state.capital='albany');"
+    },
+    "query318": {
+        "HumanQuery": "what is the longest river in texas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='texas' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='texas');"
+    },
+    "query319": {
+        "HumanQuery": "how many major cities are in arizona",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='arizona' AND city.population>150000;"
+    },
+    "query320": {
+        "HumanQuery": "how many major cities are there",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.population>150000;"
+    },
+    "query321": {
+        "HumanQuery": "how high is the highest point of louisiana",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow WHERE highlow.state_name='louisiana';"
+    },
+    "query322": {
+        "HumanQuery": "what states border ohio",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='ohio';"
+    },
+    "query323": {
+        "HumanQuery": "what state has no rivers",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name NOT IN (SELECT river.traverse FROM river);"
+    },
+    "query324": {
+        "HumanQuery": "how many states border tennessee",
+        "SQLQuery": "SELECT count(border_info.border) FROM border_info WHERE border_info.state_name='tennessee';"
+    },
+    "query325": {
+        "HumanQuery": "what is the combined population of all 50 states",
+        "SQLQuery": "SELECT sum(state.population) FROM state;"
+    },
+    "query326": {
+        "HumanQuery": "what is the smallest state that borders texas",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas') AND state.area=(SELECT min(state.area) FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas' ));"
+    },
+    "query327": {
+        "HumanQuery": "through which states does the mississippi run",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='mississippi';"
+    },
+    "query328": {
+        "HumanQuery": "name the major lakes in michigan",
+        "SQLQuery": "SELECT lake.lake_name FROM lake WHERE lake.state_name='michigan';"
+    },
+    "query329": {
+        "HumanQuery": "where is the lowest spot in iowa",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='iowa';"
+    },
+    "query330": {
+        "HumanQuery": "which state has the most people",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state);"
+    },
+    "query331": {
+        "HumanQuery": "in which state does the highest point in usa exist",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query332": {
+        "HumanQuery": "what is the population of the major cities in wisconsin",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.state_name='wisconsin' AND city.population>150000;"
+    },
+    "query333": {
+        "HumanQuery": "how many rivers are found in colorado",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='colorado';"
+    },
+    "query334": {
+        "HumanQuery": "what are the major cities of texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population>150000;"
+    },
+    "query335": {
+        "HumanQuery": "how many inhabitants does montgomery have",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='montgomery';"
+    },
+    "query336": {
+        "HumanQuery": "what is the tallest mountain in the united states",
+        "SQLQuery": "SELECT mountain.mountain_name FROM mountain WHERE mountain.mountain_altitude=(SELECT max(mountain.mountain_altitude) FROM mountain);"
+    },
+    "query337": {
+        "HumanQuery": "which states have points that are higher than the highest point in texas",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation  > (SELECT highlow.highest_elevation FROM highlow WHERE highlow.state_name = 'texas');"
+    },
+    "query338": {
+        "HumanQuery": "which state has the sparsest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT min(state.density) FROM state);"
+    },
+    "query339": {
+        "HumanQuery": "how many states does the mississippi river run through",
+        "SQLQuery": "SELECT count(river.traverse) FROM river WHERE river.river_name='mississippi';"
+    },
+    "query340": {
+        "HumanQuery": "what are the major cities in the smallest state in the us",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population>150000 AND city.state_name=(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state ));"
+    },
+    "query341": {
+        "HumanQuery": "what is the shortest river in the us",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query342": {
+        "HumanQuery": "which states border alabama",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='alabama';"
+    },
+    "query343": {
+        "HumanQuery": "where is massachusetts",
+        "SQLQuery": "SELECT state.country_name FROM state WHERE state.state_name='massachusetts';"
+    },
+    "query344": {
+        "HumanQuery": "what rivers are in oregon",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='oregon';"
+    },
+    "query345": {
+        "HumanQuery": "whats the largest city ?",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query346": {
+        "HumanQuery": "which state has the greatest density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query347": {
+        "HumanQuery": "what is the biggest river in illinois",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='illinois' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='illinois');"
+    },
+    "query348": {
+        "HumanQuery": "what rivers are in utah",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='utah';"
+    },
+    "query349": {
+        "HumanQuery": "what cities in california",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='california';"
+    },
+    "query350": {
+        "HumanQuery": "what is the capital of the state with the highest elevation",
+        "SQLQuery": "SELECT state.capital FROM state,highlow WHERE state.state_name=highlow.state_name AND highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query351": {
+        "HumanQuery": "what state has the smallest area",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state);"
+    },
+    "query352": {
+        "HumanQuery": "what is the area of the largest state",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query353": {
+        "HumanQuery": "what is the population density of south dakota",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.state_name='south dakota';"
+    },
+    "query354": {
+        "HumanQuery": "which states adjoin alabama",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='alabama';"
+    },
+    "query355": {
+        "HumanQuery": "states bordering iowa",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='iowa';"
+    },
+    "query356": {
+        "HumanQuery": "how many cities does texas have",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='texas';"
+    },
+    "query357": {
+        "HumanQuery": "how many states have a city named springfield",
+        "SQLQuery": "SELECT count(city.state_name) FROM city WHERE city.city_name='springfield';"
+    },
+    "query358": {
+        "HumanQuery": "how many cities are in montana",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='montana';"
+    },
+    "query359": {
+        "HumanQuery": "what state borders the least states excluding alaska and excluding hawaii",
+        "SQLQuery": "SELECT state.state_name FROM state left outer join border_info ON state.state_name = border_info.state_name WHERE state.state_name <> 'alaska' AND state.state_name <> 'hawaii' GROUP BY state.state_name having count(border_info.border) = (SELECT min(cnt) FROM (SELECT state.state_name, count(border_info.border) AS cnt FROM state left outer join border_info ON state.state_name = border_info.state_name WHERE state.state_name <> 'alaska' AND state.state_name <> 'hawaii' GROUP BY state.state_name) tmp);"
+    },
+    "query360": {
+        "HumanQuery": "what state is columbus the capital of",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.capital='columbus';"
+    },
+    "query361": {
+        "HumanQuery": "name the rivers in arkansas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='arkansas';"
+    },
+    "query362": {
+        "HumanQuery": "what is the lowest point in california",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='california';"
+    },
+    "query363": {
+        "HumanQuery": "what is the shortest river in alaska",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='alaska' AND river.length=(SELECT min(river.length) FROM river WHERE river.traverse='alaska');"
+    },
+    "query364": {
+        "HumanQuery": "what is the lowest point in the united states",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.lowest_elevation=(SELECT min(highlow.lowest_elevation) FROM highlow);"
+    },
+    "query365": {
+        "HumanQuery": "which capitals are in states that border texas",
+        "SQLQuery": "SELECT state.capital FROM state,border_info WHERE border_info.border=state.state_name AND border_info.state_name='texas';"
+    },
+    "query366": {
+        "HumanQuery": "how many major cities are in states bordering nebraska",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='nebraska') AND city.population>150000;"
+    },
+    "query367": {
+        "HumanQuery": "what is the capital of georgia",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='georgia';"
+    },
+    "query368": {
+        "HumanQuery": "what are the major cities in missouri",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='missouri' AND city.population>150000;"
+    },
+    "query369": {
+        "HumanQuery": "what can you tell me about the population of missouri",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='missouri';"
+    },
+    "query370": {
+        "HumanQuery": "what are the major cities of the united states",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population>150000;"
+    },
+    "query371": {
+        "HumanQuery": "what state is austin the capital of",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.capital='austin';"
+    },
+    "query372": {
+        "HumanQuery": "what is the highest point in ohio",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='ohio';"
+    },
+    "query373": {
+        "HumanQuery": "what is the longest river in new york",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='new york' AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse='new york');"
+    },
+    "query374": {
+        "HumanQuery": "how many states are next to major rivers",
+        "SQLQuery": "SELECT count(distinct river.traverse) FROM river WHERE river.length>750;"
+    },
+    "query375": {
+        "HumanQuery": "how many states are there in united states",
+        "SQLQuery": "SELECT count(state.state_name) FROM state;"
+    },
+    "query376": {
+        "HumanQuery": "what is the population of oregon",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='oregon';"
+    },
+    "query377": {
+        "HumanQuery": "what is the biggest city in the smallest state",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city WHERE city.state_name IN(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state))) AND city.state_name IN(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state));"
+    },
+    "query378": {
+        "HumanQuery": "how many people live in riverside",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='riverside';"
+    },
+    "query379": {
+        "HumanQuery": "what city has the largest population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query380": {
+        "HumanQuery": "what are the names of the major cities in illinois",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='illinois' AND city.population>150000;"
+    },
+    "query381": {
+        "HumanQuery": "where is indianapolis",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='indianapolis';"
+    },
+    "query382": {
+        "HumanQuery": "where is san jose",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='san jose';"
+    },
+    "query383": {
+        "HumanQuery": "what is the area of the smallest state",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.area=(SELECT min(state.area) FROM state);"
+    },
+    "query384": {
+        "HumanQuery": "what are the major cities in california",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='california' AND city.population>150000;"
+    },
+    "query385": {
+        "HumanQuery": "what is the population of the capital of the largest state",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name=(SELECT state.capital FROM state WHERE state.area=(SELECT max(state.area) FROM state));"
+    },
+    "query386": {
+        "HumanQuery": "name the states which have no surrounding states",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name NOT IN(SELECT border_info.state_name FROM border_info);"
+    },
+    "query387": {
+        "HumanQuery": "name all the lakes of us",
+        "SQLQuery": "SELECT lake.lake_name FROM lake;"
+    },
+    "query388": {
+        "HumanQuery": "what is the largest city in michigan",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='michigan' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='michigan');"
+    },
+    "query389": {
+        "HumanQuery": "what is the biggest city in texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='texas');"
+    },
+    "query390": {
+        "HumanQuery": "how many rivers are in the state with the highest point",
+        "SQLQuery": "SELECT count(river.river_name) FROM river,highlow WHERE river.traverse=highlow.state_name AND highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query391": {
+        "HumanQuery": "how many states have a city called rochester",
+        "SQLQuery": "SELECT count(city.state_name) FROM city WHERE city.city_name='rochester';"
+    },
+    "query392": {
+        "HumanQuery": "what is the biggest city in the usa",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query393": {
+        "HumanQuery": "what is the population of sacramento",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='sacramento';"
+    },
+    "query394": {
+        "HumanQuery": "what is the area of alaska",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='alaska';"
+    },
+    "query395": {
+        "HumanQuery": "what is the population of the capital of the smallest state",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name=(SELECT state.capital FROM state WHERE state.area=(SELECT min(state.area) FROM state));"
+    },
+    "query396": {
+        "HumanQuery": "give me all the states of usa",
+        "SQLQuery": "SELECT state.state_name FROM state;"
+    },
+    "query397": {
+        "HumanQuery": "what is the area of all the states combined",
+        "SQLQuery": "SELECT sum(state.area) FROM state;"
+    },
+    "query398": {
+        "HumanQuery": "what is the longest river that runs through a state that borders tennessee",
+        "SQLQuery": "SELECT river.river_name FROM river,border_info WHERE river.traverse=border_info.state_name AND border_info.border='tennessee' ORDER BY river.length DESC LIMIT 1;"
+    },
+    "query399": {
+        "HumanQuery": "which state has the highest peak in the country ?",
+        "SQLQuery": "SELECT mountain.state_name FROM mountain WHERE mountain.mountain_altitude = (SELECT max(mountain.mountain_altitude) FROM mountain);"
+    },
+    "query400": {
+        "HumanQuery": "what states have rivers named colorado",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='colorado';"
+    },
+    "query401": {
+        "HumanQuery": "what rivers flow through the largest state",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state));"
+    },
+    "query402": {
+        "HumanQuery": "what is the capital city of the largest state in the us",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query403": {
+        "HumanQuery": "how many people live in south dakota",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='south dakota';"
+    },
+    "query404": {
+        "HumanQuery": "how long is the mississippi river",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='mississippi';"
+    },
+    "query405": {
+        "HumanQuery": "where is new orleans",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='new orleans';"
+    },
+    "query406": {
+        "HumanQuery": "what is the population of denver",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='denver';"
+    },
+    "query407": {
+        "HumanQuery": "what is the population of montana",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='montana';"
+    },
+    "query408": {
+        "HumanQuery": "what major rivers run through illinois",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='illinois' AND river.length>750;"
+    },
+    "query409": {
+        "HumanQuery": "what states border alaska",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='alaska';"
+    },
+    "query410": {
+        "HumanQuery": "what state has the highest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query411": {
+        "HumanQuery": "what is the capital of utah",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='utah';"
+    },
+    "query412": {
+        "HumanQuery": "what rivers run through austin texas ?",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='austin';"
+    },
+    "query413": {
+        "HumanQuery": "which state has the most rivers running through it ?",
+        "SQLQuery": "SELECT river.traverse FROM river GROUP BY river.traverse ORDER BY count(1) DESC LIMIT 1;"
+    },
+    "query414": {
+        "HumanQuery": "what rivers flow through the state with the largest population",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state));"
+    },
+    "query415": {
+        "HumanQuery": "how high is the highest point of delaware",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow WHERE highlow.state_name='delaware';"
+    },
+    "query416": {
+        "HumanQuery": "what is the population of the largest state that borders texas",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas') AND state.area=(SELECT max(state.area) FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas' ));"
+    },
+    "query417": {
+        "HumanQuery": "what is the population density of the smallest state",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.area=(SELECT min(state.area) FROM state);"
+    },
+    "query418": {
+        "HumanQuery": "how many people live in the state with the largest population density",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query419": {
+        "HumanQuery": "how many people live in new york",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='new york';"
+    },
+    "query420": {
+        "HumanQuery": "what state has the highest elevation",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query421": {
+        "HumanQuery": "give me the cities in texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas';"
+    },
+    "query422": {
+        "HumanQuery": "what state has the most rivers running through it ?",
+        "SQLQuery": "SELECT river.traverse FROM river GROUP BY river.traverse ORDER BY count(1) DESC LIMIT 1;"
+    },
+    "query423": {
+        "HumanQuery": "how many square kilometers in the us",
+        "SQLQuery": "SELECT sum(state.area) FROM state;"
+    },
+    "query424": {
+        "HumanQuery": "where is baton rouge",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='baton rouge';"
+    },
+    "query425": {
+        "HumanQuery": "what states border states that border colorado",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='mississippi');"
+    },
+    "query426": {
+        "HumanQuery": "how many cities are there in the us",
+        "SQLQuery": "SELECT count(city.city_name) FROM city;"
+    },
+    "query427": {
+        "HumanQuery": "what is the population of seattle washington",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='seattle' AND city.state_name='washington';"
+    },
+    "query428": {
+        "HumanQuery": "how many people live in the smallest state bordering wyoming",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='wyoming') AND state.population=(SELECT max(state.population) FROM state WHERE state.state_name IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='wyoming' ));"
+    },
+    "query429": {
+        "HumanQuery": "how many rivers are in the state with the largest population",
+        "SQLQuery": "SELECT count(river.river_name) FROM river,state WHERE river.traverse=state.state_name AND state.state_name=(SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state ));"
+    },
+    "query430": {
+        "HumanQuery": "what are the rivers in the state of texas",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='texas';"
+    },
+    "query431": {
+        "HumanQuery": "what city has the least population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT min(city.population) FROM city);"
+    },
+    "query432": {
+        "HumanQuery": "what is the city with the smallest population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT min(city.population) FROM city);"
+    },
+    "query433": {
+        "HumanQuery": "which capitals are not major cities ?",
+        "SQLQuery": "SELECT state.capital FROM state, city WHERE state.capital = city.city_name AND city.population <= 150000;"
+    },
+    "query434": {
+        "HumanQuery": "how many states border the mississippi river",
+        "SQLQuery": "SELECT count(distinct border_info.border) FROM border_info WHERE border_info.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query435": {
+        "HumanQuery": "what are the capital cities of the states which border texas",
+        "SQLQuery": "SELECT state.capital FROM state,border_info WHERE border_info.border=state.state_name AND border_info.state_name='texas';"
+    },
+    "query436": {
+        "HumanQuery": "what is the lowest point of the state with the largest area",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow,state WHERE highlow.state_name=state.state_name AND state.state_name IN(SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state));"
+    },
+    "query437": {
+        "HumanQuery": "what is the population of washington dc",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='district of columbia';"
+    },
+    "query438": {
+        "HumanQuery": "what is the population of seattle",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='seattle';"
+    },
+    "query439": {
+        "HumanQuery": "what rivers flow through missouri",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='missouri';"
+    },
+    "query440": {
+        "HumanQuery": "which states does not border texas",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name NOT IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='texas');"
+    },
+    "query441": {
+        "HumanQuery": "what is the lowest point of colorado",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='colorado';"
+    },
+    "query442": {
+        "HumanQuery": "what is the highest point in the state with capital des moines",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name IN(SELECT state.state_name FROM state WHERE state.capital='des moines');"
+    },
+    "query443": {
+        "HumanQuery": "what are the states through which the longest river runs",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query444": {
+        "HumanQuery": "what is the largest of the state that the rio grande runs through",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='rio grande') AND state.area=(SELECT max(state.area) FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='rio grande'));"
+    },
+    "query445": {
+        "HumanQuery": "how many people in boulder",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boulder';"
+    },
+    "query446": {
+        "HumanQuery": "what is the state with the lowest point",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.lowest_elevation=(SELECT min(highlow.lowest_elevation) FROM highlow);"
+    },
+    "query447": {
+        "HumanQuery": "what is the largest city in texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='texas');"
+    },
+    "query448": {
+        "HumanQuery": "give me the cities in virginia",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='virginia';"
+    },
+    "query449": {
+        "HumanQuery": "which state has the largest density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query450": {
+        "HumanQuery": "what is capital of iowa",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='iowa';"
+    },
+    "query451": {
+        "HumanQuery": "sacramento is the capital of which state",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.capital='sacramento';"
+    },
+    "query452": {
+        "HumanQuery": "what is the population of boston",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boston';"
+    },
+    "query453": {
+        "HumanQuery": "what is the population density of wyoming",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.state_name='wyoming';"
+    },
+    "query454": {
+        "HumanQuery": "how many people live in austin texas",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='austin' AND city.state_name='texas';"
+    },
+    "query455": {
+        "HumanQuery": "what are the major cities in the states through which the major river in virginia runs",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population>150000 AND city.state_name IN (SELECT river.traverse FROM river WHERE river.river_name IN (SELECT river.river_name FROM river WHERE river.traverse='virginia' AND river.length>750) );"
+    },
+    "query456": {
+        "HumanQuery": "what is the shortest river in the united states",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT min(river.length) FROM river);"
+    },
+    "query457": {
+        "HumanQuery": "how many states have cities named austin",
+        "SQLQuery": "SELECT count(city.state_name) FROM city WHERE city.city_name='austin';"
+    },
+    "query458": {
+        "HumanQuery": "what river runs through virginia",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='virginia';"
+    },
+    "query459": {
+        "HumanQuery": "what is the population of south dakota",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='south dakota';"
+    },
+    "query460": {
+        "HumanQuery": "where is fort wayne",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='fort wayne';"
+    },
+    "query461": {
+        "HumanQuery": "what is the length of the river that traverses the most states",
+        "SQLQuery": "SELECT distinct river.length FROM river WHERE river.river_name = ( SELECT river_name FROM (SELECT river.river_name, count(1) AS cnt FROM river GROUP BY river.river_name ) tmp1 WHERE tmp1.cnt = (SELECT max (cnt) FROM (SELECT river.river_name, count(1) AS cnt FROM river GROUP BY river.river_name ) tmp2 ) );"
+    },
+    "query462": {
+        "HumanQuery": "what is the state with the largest density in usa",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query463": {
+        "HumanQuery": "what are the populations of states through which the mississippi river runs",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query464": {
+        "HumanQuery": "what is the population of the largest state",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query465": {
+        "HumanQuery": "what is the smallest city in alaska",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='alaska' AND city.population=(SELECT min(city.population) FROM city WHERE city.state_name='alaska');"
+    },
+    "query466": {
+        "HumanQuery": "what is the capital of the largest state",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query467": {
+        "HumanQuery": "what state which the mississippi runs through has the largest population",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN (SELECT river.traverse FROM river WHERE river.river_name = 'mississippi' ) ORDER BY state.population DESC LIMIT 1;"
+    },
+    "query468": {
+        "HumanQuery": "what states are next to texas",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='texas';"
+    },
+    "query469": {
+        "HumanQuery": "what is the capital of maryland",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='maryland';"
+    },
+    "query470": {
+        "HumanQuery": "which state is the largest city in montana in ?",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.state_name='montana' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='montana');"
+    },
+    "query471": {
+        "HumanQuery": "what is the largest state that borders the state with the lowest point in the usa",
+        "SQLQuery": "SELECT border_info.state_name FROM state,border_info,highlow WHERE(state.state_name=border_info.border)AND(border_info.border=highlow.state_name) AND highlow.lowest_elevation=(SELECT min(highlow.lowest_elevation) FROM highlow) ORDER BY state.area DESC LIMIT 1;"
+    },
+    "query472": {
+        "HumanQuery": "which state borders florida",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='florida';"
+    },
+    "query473": {
+        "HumanQuery": "what rivers are in nevada",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse='nevada';"
+    },
+    "query474": {
+        "HumanQuery": "what is the most populated state bordering oklahoma",
+        "SQLQuery": "SELECT distinct state.state_name FROM border_info,state WHERE border_info.state_name='oklahoma' AND state.state_name=border_info.border AND state.population=(SELECT max(state.population) FROM border_info,state WHERE border_info.state_name='oklahoma' AND state.state_name=border_info.border);"
+    },
+    "query475": {
+        "HumanQuery": "what is the state wih the highest elevation in the united states",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query476": {
+        "HumanQuery": "what is the length of the river that runs through the most number of states",
+        "SQLQuery": "SELECT distinct river.length FROM river WHERE river.river_name = ( SELECT river_name FROM (SELECT river.river_name, count(1) AS cnt FROM river GROUP BY river.river_name ) tmp1 WHERE tmp1.cnt = (SELECT max (cnt) FROM (SELECT river.river_name, count(1) AS cnt FROM river GROUP BY river.river_name ) tmp2 ) );"
+    },
+    "query477": {
+        "HumanQuery": "which states border south dakota",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='south dakota';"
+    },
+    "query478": {
+        "HumanQuery": "where is houston",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='houston';"
+    },
+    "query479": {
+        "HumanQuery": "what are the cities in california",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='california';"
+    },
+    "query480": {
+        "HumanQuery": "what is the smallest state in the usa",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state);"
+    },
+    "query481": {
+        "HumanQuery": "give me the cities in usa",
+        "SQLQuery": "SELECT city.city_name FROM city;"
+    },
+    "query482": {
+        "HumanQuery": "what states have a capital that is the highest point in the state ?",
+        "SQLQuery": "SELECT state.state_name FROM state, highlow WHERE state.capital = highlow.highest_point;"
+    },
+    "query483": {
+        "HumanQuery": "what is the area of maine",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='maine';"
+    },
+    "query484": {
+        "HumanQuery": "what is the largest city in alabama",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='alabama' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='alabama');"
+    },
+    "query485": {
+        "HumanQuery": "what is the largest state that borders california",
+        "SQLQuery": "SELECT state.state_name FROM border_info,state WHERE state.state_name=border_info.border AND border_info.state_name='california' AND state.area=(SELECT max(state.area) FROM border_info,state WHERE state.state_name=border_info.border AND border_info.state_name='california');"
+    },
+    "query486": {
+        "HumanQuery": "what is the lowest point in louisiana",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='louisiana';"
+    },
+    "query487": {
+        "HumanQuery": "what state has the greatest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query488": {
+        "HumanQuery": "what is the longest river in the smallest state in the usa",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state)) AND river.length=(SELECT max(river.length) FROM river WHERE river.traverse IN(SELECT state.state_name FROM state WHERE state.area=(SELECT min(state.area) FROM state)));"
+    },
+    "query489": {
+        "HumanQuery": "what is the highest point in colorado",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='colorado';"
+    },
+    "query490": {
+        "HumanQuery": "how many cities are in louisiana",
+        "SQLQuery": "SELECT count(city.city_name) FROM city WHERE city.state_name='louisiana';"
+    },
+    "query491": {
+        "HumanQuery": "what states border states that border the state with the largest population ?",
+        "SQLQuery": "SELECT b1.border FROM border_info b1, border_info b2 WHERE b1.state_name = b2.border AND b2.state_name IN (SELECT state.state_name FROM state WHERE state.population = (SELECT max(state.population) FROM state));"
+    },
+    "query492": {
+        "HumanQuery": "what is the capital of hawaii",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='hawaii';"
+    },
+    "query493": {
+        "HumanQuery": "in what state is mount mckinley",
+        "SQLQuery": "SELECT mountain.state_name FROM mountain WHERE mountain.mountain_name='mckinley';"
+    },
+    "query494": {
+        "HumanQuery": "what is the population of portland maine",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='portland' AND city.state_name='maine';"
+    },
+    "query495": {
+        "HumanQuery": "what state has the city with the most population",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query496": {
+        "HumanQuery": "what is the largest city of kansas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='kansas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='kansas');"
+    },
+    "query497": {
+        "HumanQuery": "how long is the missouri river",
+        "SQLQuery": "SELECT river.length FROM river WHERE river.river_name='missouri';"
+    },
+    "query498": {
+        "HumanQuery": "what is the height of mount mckinley",
+        "SQLQuery": "SELECT mountain.mountain_altitude FROM mountain WHERE mountain.mountain_name='mckinley';"
+    },
+    "query499": {
+        "HumanQuery": "what states border wisconsin",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='wisconsin';"
+    },
+    "query500": {
+        "HumanQuery": "give me the cities which are in texas",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas';"
+    },
+    "query501": {
+        "HumanQuery": "what is the density of texas",
+        "SQLQuery": "SELECT state.density FROM state WHERE state.state_name='texas';"
+    },
+    "query502": {
+        "HumanQuery": "how many cities are there in usa",
+        "SQLQuery": "SELECT count(city.city_name) FROM city;"
+    },
+    "query503": {
+        "HumanQuery": "what is the population of springfield south dakota",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='springfield' AND city.state_name='south dakota';"
+    },
+    "query504": {
+        "HumanQuery": "what states high point are higher than that of colorado ?",
+        "SQLQuery": "SELECT highlow.state_name FROM highlow WHERE highlow.highest_elevation  > (SELECT highlow.highest_elevation FROM highlow WHERE highlow.state_name = 'colorado');"
+    },
+    "query505": {
+        "HumanQuery": "give me the largest state",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query506": {
+        "HumanQuery": "what is the highest mountain in alaska",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='alaska';"
+    },
+    "query507": {
+        "HumanQuery": "what is the capital of michigan",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='michigan';"
+    },
+    "query508": {
+        "HumanQuery": "what river is the longest one in the united states ?",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.length=(SELECT max(river.length) FROM river);"
+    },
+    "query509": {
+        "HumanQuery": "how many people are there in iowa",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='iowa';"
+    },
+    "query510": {
+        "HumanQuery": "what is the capital of texas",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name='texas';"
+    },
+    "query511": {
+        "HumanQuery": "what states border states that border states that border states that border texas",
+        "SQLQuery": "SELECT b1.border FROM border_info b1, border_info b2, border_info b3, border_info b4 WHERE b1.state_name = b2.border AND b2.state_name = b3.border AND b3.state_name = b4.border AND b4.state_name = 'texas';"
+    },
+    "query512": {
+        "HumanQuery": "what is the size of florida",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='florida';"
+    },
+    "query513": {
+        "HumanQuery": "what state that borders texas has the highest population ?",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN (SELECT border_info.border FROM border_info WHERE border_info.state_name = 'texas' ) ORDER BY state.population DESC LIMIT 1;"
+    },
+    "query514": {
+        "HumanQuery": "what is the area of maryland in square kilometers",
+        "SQLQuery": "SELECT state.area FROM state WHERE state.state_name='maryland';"
+    },
+    "query515": {
+        "HumanQuery": "population of boulder",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='boulder';"
+    },
+    "query516": {
+        "HumanQuery": "how high is the highest point in the largest state",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow,state WHERE highlow.state_name=state.state_name AND state.area=(SELECT max(state.area) FROM state);"
+    },
+    "query517": {
+        "HumanQuery": "what is the capital of the state that borders the most states",
+        "SQLQuery": "SELECT state.capital FROM state WHERE state.state_name IN ( SELECT border_info.border FROM border_info GROUP BY border_info.border having count(1) = (SELECT max(cnt1) FROM (SELECT border_info.border, count(1) AS cnt1 FROM border_info GROUP BY border_info.border) tmp) );"
+    },
+    "query518": {
+        "HumanQuery": "what is the lowest point in wisconsin",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.state_name='wisconsin';"
+    },
+    "query519": {
+        "HumanQuery": "what state has the city flint",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='flint';"
+    },
+    "query520": {
+        "HumanQuery": "what capital has the largest population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city,state WHERE city.city_name=state.capital);"
+    },
+    "query521": {
+        "HumanQuery": "which rivers run through the state with the lowest elevation in the usa",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN (SELECT highlow.state_name FROM highlow WHERE highlow.lowest_elevation= (SELECT min(highlow.lowest_elevation) FROM highlow));"
+    },
+    "query522": {
+        "HumanQuery": "what is the height of the highest point in the usa",
+        "SQLQuery": "SELECT max(highlow.highest_elevation) FROM highlow;"
+    },
+    "query523": {
+        "HumanQuery": "how many people live in the capital of georgia",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name=(SELECT state.capital FROM state WHERE state.state_name='georgia');"
+    },
+    "query524": {
+        "HumanQuery": "what is the highest point in florida",
+        "SQLQuery": "SELECT highlow.highest_point FROM highlow WHERE highlow.state_name='florida';"
+    },
+    "query525": {
+        "HumanQuery": "what is the largest state that borders the state with the highest population",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN(SELECT border_info.state_name FROM border_info WHERE border_info.border IN(SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state))) AND state.area=(SELECT max(state.area) FROM state WHERE state.state_name IN (SELECT border_info.state_name FROM border_info WHERE border_info.border IN(SELECT state.state_name FROM state WHERE state.population=(SELECT max(state.population) FROM state))));"
+    },
+    "query526": {
+        "HumanQuery": "how many people are there in new york",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name='new york';"
+    },
+    "query527": {
+        "HumanQuery": "what are the populations of the states through which the mississippi runs",
+        "SQLQuery": "SELECT state.population FROM state WHERE state.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query528": {
+        "HumanQuery": "what is the population of springfield missouri",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='springfield' AND city.state_name='missouri';"
+    },
+    "query529": {
+        "HumanQuery": "what state that borders texas is the largest ?",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.state_name IN (SELECT border_info.border FROM border_info WHERE border_info.state_name = 'texas' ) ORDER BY state.area DESC LIMIT 1;"
+    },
+    "query530": {
+        "HumanQuery": "what rivers flow through states that alabama borders",
+        "SQLQuery": "SELECT river.river_name FROM river WHERE river.traverse IN(SELECT border_info.border FROM border_info WHERE border_info.state_name='alabama');"
+    },
+    "query531": {
+        "HumanQuery": "what is the biggest city in the us",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.population=(SELECT max(city.population) FROM city);"
+    },
+    "query532": {
+        "HumanQuery": "where is the lowest point in the us",
+        "SQLQuery": "SELECT highlow.lowest_point FROM highlow WHERE highlow.lowest_elevation = (SELECT min(highlow.lowest_elevation) FROM highlow);"
+    },
+    "query533": {
+        "HumanQuery": "which states border michigan",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name='michigan';"
+    },
+    "query534": {
+        "HumanQuery": "what are the states that the potomac run through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='potomac';"
+    },
+    "query535": {
+        "HumanQuery": "where is austin",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='austin';"
+    },
+    "query536": {
+        "HumanQuery": "what is the population of atlanta",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='atlanta';"
+    },
+    "query537": {
+        "HumanQuery": "where is new hampshire",
+        "SQLQuery": "SELECT state.country_name FROM state WHERE state.state_name='new hampshire';"
+    },
+    "query538": {
+        "HumanQuery": "how high is the highest point in montana",
+        "SQLQuery": "SELECT highlow.highest_elevation FROM highlow WHERE highlow.state_name='montana';"
+    },
+    "query539": {
+        "HumanQuery": "how many major rivers cross ohio",
+        "SQLQuery": "SELECT count(river.river_name) FROM river WHERE river.traverse='ohio' AND river.length>750;"
+    },
+    "query540": {
+        "HumanQuery": "what is the highest point in the us",
+        "SQLQuery": "SELECT distinct highlow.highest_point FROM highlow WHERE highlow.highest_elevation = (SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query541": {
+        "HumanQuery": "what states border states which the mississippi runs through",
+        "SQLQuery": "SELECT border_info.border FROM border_info WHERE border_info.state_name IN(SELECT river.traverse FROM river WHERE river.river_name='mississippi');"
+    },
+    "query542": {
+        "HumanQuery": "what state is boston in",
+        "SQLQuery": "SELECT city.state_name FROM city WHERE city.city_name='boston';"
+    },
+    "query543": {
+        "HumanQuery": "what is the highest point in the country",
+        "SQLQuery": "SELECT distinct highlow.highest_point FROM highlow WHERE highlow.highest_elevation = (SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query544": {
+        "HumanQuery": "what is the capital of the state with the highest point",
+        "SQLQuery": "SELECT state.capital FROM state,highlow WHERE state.state_name=highlow.state_name AND highlow.highest_elevation=(SELECT max(highlow.highest_elevation) FROM highlow);"
+    },
+    "query545": {
+        "HumanQuery": "how big is the city of new york",
+        "SQLQuery": "SELECT city.population FROM city WHERE city.city_name='new york';"
+    },
+    "query546": {
+        "HumanQuery": "what is the city in texas with the largest population",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='texas');"
+    },
+    "query547": {
+        "HumanQuery": "what states does the ohio river go through",
+        "SQLQuery": "SELECT river.traverse FROM river WHERE river.river_name='ohio';"
+    },
+    "query548": {
+        "HumanQuery": "what is the state with the largest population density",
+        "SQLQuery": "SELECT state.state_name FROM state WHERE state.density=(SELECT max(state.density) FROM state);"
+    },
+    "query549": {
+        "HumanQuery": "what state is the state with the most rivers ?",
+        "SQLQuery": "SELECT river.traverse FROM river,state WHERE river.traverse=state.state_name GROUP BY state.state_name ORDER BY count(river.river_name) DESC LIMIT 1 ;"
+    },
+    "query550": {
+        "HumanQuery": "what cities in texas have the highest populations",
+        "SQLQuery": "SELECT city.city_name FROM city WHERE city.state_name='texas' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='texas');"
+    }
+}
