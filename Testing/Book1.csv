@@ -1,5 +1,20 @@
-HumanQuery,SQLQuery
-what is the biggest city in arizona,SELECT city.city_name FROM city WHERE city.state_name='arizona' AND city.population=(SELECT max(city.population) FROM city WHERE city.state_name='arizona');
-which rivers run through the state with the largest city in the us ?,SELECT river.river_name FROM river WHERE river.traverse IN (SELECT city.state_name FROM city WHERE city.population = (SELECT max(city.population) FROM city));
-how big is texas,SELECT state.area FROM state WHERE state.state_name='texas';
-how many people live in washington,SELECT state.population FROM state WHERE state.state_name='washington';
+﻿HumanQuery,SQLQuery
+count the states which have elevations lower than what alabama has,select count(highlow.state_name) from highlow where highlow.lowest_elevation <(select highlow.lowest_elevation from highlow where highlow.state_name='alabama');
+give me the number of rivers in california,select count(river.river_name) from river where river.traverse='california';
+give me the states that border utah,select border_info.border from border_info where border_info.state_name='utah';
+how high is mount mckinley,select highlow.highest_elevation from highlow where highlow.highest_point='mount mckinley';
+how high is the highest point in america,select max(highlow.highest_elevation) from highlow;
+how high is the highest point of alabama,select highlow.highest_elevation from highlow where highlow.state_name='alabama';
+how large is alaska,select state.area from state where state.state_name='alaska';
+how large is texas,select state.area from state where state.state_name='texas';
+how long is the colorado river,select river.length from river where river.river_name='colorado';
+how long is the delaware river,select river.length from river where river.river_name='delaware';
+how long is the longest river in california,select river.length from river where river.traverse='california' and river.length=(select max(river.length) from river where river.traverse='california');
+how long is the longest river in the usa,select river.length from river where river.length=(select max(river.length) from river);
+how long is the north platte river,select river.length from river where river.river_name='north platte';
+how long is the ohio river,select river.length from river where river.river_name='ohio';
+how many capitals does rhode island have,select count(state.capital) from state where state.state_name='rhode island';
+how many cities are there in the united states,select count(city.city_name) from city;
+how many citizens does the biggest city have in the usa,select city.population from city where city.population=(select max(city.population) from city);
+how many colorado rivers are there,select count(river.river_name) from river where river.river_name='colorado';
+how many people lived in austin,select city.population from city where city.city_name='austin';
