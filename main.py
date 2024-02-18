@@ -4,9 +4,7 @@ from backend import Gpt
 from frontend import App
 
 def get_query(query):
-    print(query)
     query = query + " " + "Reply like you are interacting with a human"
-    print(query)
     #try:
     mygpt = Gpt()
     request = mygpt.run_queries(query)

@@ -10,8 +10,8 @@ class Gpt:
         self.db_path = "C:/Users/anark/Desktop/Capstone/Implementation/Modulated_code/backend/GeoQuery.db"
         self.db = SQLDatabase.from_uri(f"sqlite:///{self.db_path}")
         self.llm = OpenAI(temperature = 0)
-        self.db_chain = SQLDatabaseChain.from_llm(self.llm, self.db, return_sql = True, top_k = 1)
-        self.db_chain1 = SQLDatabaseChain.from_llm(self.llm, self.db, return_intermediate_steps = True, top_k = 1)
+        self.db_chain = SQLDatabaseChain.from_llm(self.llm, self.db, return_sql = True, top_k = 0)
+        self.db_chain1 = SQLDatabaseChain.from_llm(self.llm, self.db, return_intermediate_steps = True, top_k = 0)
         print("DB_chain successfull")
 
     def run_queries(self,query):

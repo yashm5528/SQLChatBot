@@ -110,7 +110,7 @@ what is the highest point in delaware,select highlow.highest_point from highlow 
 what is the highest point in iowa,select highlow.highest_point from highlow where highlow.state_name='iowa';
 what is the highest point in maine,select highlow.highest_point from highlow where highlow.state_name='maine';
 what is the highest point in montana,select highlow.highest_point from highlow where highlow.state_name='montana';
-what is the highest point in nevada in meters,select highlow.highest_elevation from highlow where highlow.state_name='nevada';
+what is the highest point in nevada in meters,select highlow.highest_point from highlow where highlow.state_name='nevada';
 what is the highest point in states bordering georgia,select highlow.highest_point from highlow where highlow.state_name in(select border_info.border from border_info where border_info.state_name='georgia') order by highlow.highest_elevation desc limit 1;
 what is the highest point in the states bordering colorado,"select highlow.highest_point from highlow where highlow.state_name in(select border_info.border from state,border_info where state.state_name='colorado') order by highlow.highest_elevation desc limit 1;"
 what is the highest point in the state with capital austin,select highlow.highest_point from highlow where highlow.state_name in(select state.state_name from state where state.capital='austin');
@@ -118,7 +118,7 @@ what is the highest point in the usa,select distinct highlow.highest_point from 
 what is the highest point in virginia,select highlow.highest_point from highlow where highlow.state_name='virginia';
 what is the highest point of the state with the smallest population density,select highlow.highest_point from highlow where highlow.state_name in(select state.state_name from state where state.density=(select min(state.density) from state ));
 what is the highest point of the usa,select distinct highlow.highest_point from highlow where highlow.highest_elevation = (select max(highlow.highest_elevation) from highlow);
-what is the high point of wyoming,select highlow.highest_point from highlow where highlow.state_name='wyoming';
+what is the highest point of wyoming,select highlow.highest_point from highlow where highlow.state_name='wyoming';
 what is the largest capital city in the usa,"select city.city_name from city where city.population=(select max(city.population) from city,state where city.city_name=state.capital);"
 what is the largest city in california,select city.city_name from city where city.state_name='california' and city.population=(select max(city.population) from city where city.state_name='california');
 what is the largest city in rhode island,select city.city_name from city where city.state_name='rhode island' and city.population=(select max(city.population) from city where city.state_name='rhode island');

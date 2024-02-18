@@ -16,14 +16,7 @@ Index(['Unnamed: 0', 'HumanQuery', 'Gold Query', 'Generated Query',
 # Extracting columns for comparision & getting accuracy
 
 GoldResult_df = df['Gold Result']
-print(GoldResult_df.head(14))
-
-print(GoldResult_df[13])
-
-single_answer = re.match(r"\((\d+)\)", str(GoldResult_df[13]))
-
-print(single_answer)
-
+#print(GoldResult_df.head(14))
 
 GeneratedResult_df = df['Generated Result']
 
