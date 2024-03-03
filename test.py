@@ -13,10 +13,10 @@ conn1 = sqlite3.connect(r'C:\Users\anark\Desktop\Capstone\SQLChatBot\backend\Geo
 cursor1 = conn1.cursor()
 for record in range(records):
     query = csv_data.iloc[record]['HumanQuery']
-    query = query + " " + "Reply like you are interacting with a human"
+    prompt = query + " " + "Reply like you are interacting with a human"
     golden_query = csv_data.iloc[record]['SQLQuery'] 
     try:
-        result = mygpt.run_queries(query)
+        result = mygpt.run_queries(prompt)
         golden_output = cursor.execute(golden_query)
         gold_result = golden_output.fetchall()
         generated_sql_output = cursor1.execute(result[0])

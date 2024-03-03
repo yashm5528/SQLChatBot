@@ -13,7 +13,7 @@ class App:
         tk.Label(self.app, text="Enter the question you would like to ask:", font=("Helvetica", 20)).place(x = 40, y = 150)
         self.textInput = tk.Text(self.app, height = 1, width = 90, font = ("Helvetica", 20), fg = "#0f63d1")
         self.textInput.place(x=40, y=200)
-        self.send_button = tk.Button(self.app, text="Send", command = self.btn_send)
+        self.send_button = tk.Button(self.app, text="Generate answer", command = self.btn_send)
         self.send_button.place(x=150, y=250)
         tk.Label(self.app, text="SQL Query:", font=("Helvetica", 20)).place(x = 40, y = 300)
         self.textOutputQuery = tk.Text(self.app, height = 2, width = 90, font = ("Helvetica", 20), fg = "#34b816")
@@ -26,12 +26,19 @@ class App:
         self.callback = callback
         self.clear_button = tk.Button(self.app, text="Clear", command = self.clear_textboxes)
         self.clear_button.place(x=250, y=250)
-        #self.textInput.bind("<return>", self.btn_send)
-
+        self.textInput.bind("<Return>", self.btn_enter)
+        self.textInput.bind("<Tab>", self.focus_next_widget)
+        self.send_button.bind("<Return>", self.btn_enter)
+        self.clear_button.bind("<Return>", self.tab_clear_textboxes)
 
     def btn_send(self):
         self.query = self.textInput.get("1.0",'end-1c')
-        print(self.query + "Inside button")
+        self.textOutputQuery.config(state=tk.NORMAL)
+        self.textOutputQuery.delete(1.0, tk.END)
+        self.textOutputQuery.config(state=tk.DISABLED)
+        self.textOutputAnswer.config(state=tk.NORMAL)
+        self.textOutputAnswer.delete(1.0, tk.END)
+        self.textOutputAnswer.config(state=tk.DISABLED)
         self.callback(self.query)
 
     def query_out(self, result):
@@ -52,3 +59,21 @@ class App:
         self.textOutputAnswer.config(state=tk.NORMAL)
         self.textOutputAnswer.delete(1.0, tk.END)
         self.textOutputAnswer.config(state=tk.DISABLED)
+
+    def btn_enter(self, event = None):
+        self.send_button.invoke()
+        return 'break'
+    
+    def focus_next_widget(self, event=None):
+            event.widget.tk_focusNext().focus()
+            return "break"
+
+    def tab_clear_textboxes(self, event = None):
+        self.textInput.delete(1.0, tk.END)
+        self.textOutputQuery.config(state=tk.NORMAL)
+        self.textOutputQuery.delete(1.0, tk.END)
+        self.textOutputQuery.config(state=tk.DISABLED)
+        self.textOutputAnswer.config(state=tk.NORMAL)
+        self.textOutputAnswer.delete(1.0, tk.END)
+        self.textOutputAnswer.config(state=tk.DISABLED)
+        return 'break'
