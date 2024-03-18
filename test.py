@@ -21,7 +21,7 @@ for record in range(records):
         gold_result = golden_output.fetchall()
         generated_sql_output = cursor1.execute(result[0])
         generated_sql_result = generated_sql_output.fetchall()
-        new_record = {'HumanQuery': query, 'Gold Query': golden_query, 'Generated Query': result[0], 'Gold Result': gold_result,'Generated Result': generated_sql_result, 'Generated Answer': result[1]}
+        new_record = {'HumanQuery': query, 'Gold Query': golden_query, 'Generated Query': result[0], 'Gold Result': gold_result,'Generated Result': generated_sql_result}#, 'Generated Answer': result[1]}
         print(new_record)
         df = pd.concat([df, pd.DataFrame([new_record])], ignore_index=True)
     except:
