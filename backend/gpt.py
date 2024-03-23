@@ -16,7 +16,8 @@ class Gpt:
         self.db_chain = SQLDatabaseChain.from_llm(self.llm, self.db, return_sql = True, top_k = 0)
         #self.db_chain1 = SQLDatabaseChain.from_llm(self.llm, self.db, return_intermediate_steps = True, top_k = 0)
         #Add code to give the query and the db chain answer to get the result[1]
-        self.prompt_template = "Summarize this: {Question}, {Answer} in a single sentence"
+        # better - self.prompt_template = "Condense {Question}'s essence into a single sentence encapsulating {Answer}."
+        self.prompt_template = "Summarize the {Question} in brief and share the detailed {Answer}."
         self.prompt = PromptTemplate(input_variables=["query", "self.generated_sql_result"], template=self.prompt_template)
         self.chain = LLMChain(llm=OpenAI(), prompt= self.prompt)
         print("DB_chain successfull")
