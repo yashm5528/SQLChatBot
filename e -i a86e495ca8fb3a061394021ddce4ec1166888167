@@ -1,0 +1,92 @@
+[33mcommit 0e9ace36e30897881bb59116660dd91b04afb905[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mfinal_code[m[33m)[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sat Mar 23 17:22:17 2024 -0400
+
+    Aumated accuracy calculation & updated prompt for better performance
+
+[33mcommit a86e495ca8fb3a061394021ddce4ec1166888167[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sat Mar 23 15:57:02 2024 -0400
+
+    Automated accuracy calculation & added better prompt
+
+[33mcommit 0b25b37b75cb71f0829ac53c8071a005b911031a[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Mon Mar 18 19:35:03 2024 -0400
+
+    Changed the result generation and prompt engineered the llm
+
+[33mcommit 1159a878c508fb7b61ddb676dcc8c6d561e44451[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sat Mar 2 23:00:28 2024 -0500
+
+    Changed code to prevent token changes, got new accuracy, added functionality to the GUI.
+
+[33mcommit 12dbbf25eda6a29d7d1f6c02a4f02f5bba3e1d57[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sun Feb 18 12:56:49 2024 -0500
+
+    Got new accuracy & modified the UI. Resolved limit 5 issue.
+
+[33mcommit 048d846be9f414b0864f438129747d4c5e5c163f[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sun Feb 11 22:09:26 2024 -0500
+
+    Was finally able to solve the issue of the generated query having a default limit of 5. Modified GUI to clear all inputs and outputs via a clear button.
+
+[33mcommit 2ed0d751d6c06582328ee8c78efd02b6d232ee6f[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sun Feb 11 14:47:06 2024 -0500
+
+    Added accuracy code, modified front end and corrected test data set
+
+[33mcommit bb29beecbc603cfb862f3481b54ceee12023bfb7[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sun Jan 28 15:24:30 2024 -0500
+
+    Corrected db link, wrote code for generating test results
+
+[33mcommit 056812feb384fa439ec927f0d49e3eab59ced5f8[m
+Author: ym5528 <ym5528@rit.edu>
+Date:   Sun Jan 21 16:39:57 2024 -0500
+
+    Adding all files and folders from local machine
+
+[33mcommit 3879ad977de0b0a661aedf5632028b49ffc94045[m
+Author: yashm5528 <152750202+yashm5528@users.noreply.github.com>
+Date:   Sun Jan 21 16:22:15 2024 -0500
+
+    Add files via upload
+
+[33mcommit 7755331b09b98b63c4944adce0ae6b3f2a891185[m
+Author: yashm5528 <152750202+yashm5528@users.noreply.github.com>
+Date:   Sun Jan 21 12:50:46 2024 -0500
+
+    Add files via upload
+
+[33mcommit 8195d30b710e61e6f834749f8ee32a2556d11b94[m
+Merge: 9412d09 ab765f8
+Author: yashm5528 <152750202+yashm5528@users.noreply.github.com>
+Date:   Sun Jan 7 00:21:10 2024 -0500
+
+    Merge pull request #1 from yashm5528/frontend
+    
+    Add files via upload
+
+[33mcommit ab765f869ba86ddb6c788b7a25bc7a84a09e0213[m
+Author: yashm5528 <152750202+yashm5528@users.noreply.github.com>
+Date:   Sun Jan 7 00:20:52 2024 -0500
+
+    Add files via upload
+
+[33mcommit 9412d09b642fdb93692c56886cae82dafc77788c[m
+Author: yashm5528 <152750202+yashm5528@users.noreply.github.com>
+Date:   Sun Jan 7 00:17:54 2024 -0500
+
+    Add files via upload
+
+[33mcommit 664d49689231590a028f46c7430006a11e4df35d[m
+Author: yashm5528 <152750202+yashm5528@users.noreply.github.com>
+Date:   Sun Jan 7 00:16:42 2024 -0500
+
+    Initial commit

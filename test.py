@@ -6,7 +6,7 @@ import pickle
 
 mygpt = Gpt()
 #geography.uw.test.txt - Copy
-csv_data = pd.read_csv(r"C:\Users\anark\Desktop\Capstone\SQLChatBot\Testing\book1.csv")
+csv_data = pd.read_csv(r"C:\Users\anark\Desktop\Capstone\SQLChatBot\Testing\geography.uw.test.txt.csv")
 records = csv_data.shape[0]
 
 df = pd.DataFrame()
@@ -36,10 +36,10 @@ print(df)
 print('------------------------')
 print(df.iloc[:1])
 print('------------------------')
-df.to_excel(r"C:\Users\anark\Desktop\Capstone\SQLChatBot\Testing\book1.results.xlsx")
-df.to_csv(r"C:\Users\anark\Desktop\Capstone\SQLChatBot\Testing\book1.results.csv")
+df.to_excel(r"C:\Users\anark\Desktop\Capstone\SQLChatBot\Testing\geography.uw.test.txt.results.xlsx")
+df.to_csv(r"C:\Users\anark\Desktop\Capstone\SQLChatBot\Testing\geography.uw.test.txt.results.csv")
 
-with open('tuple_results.pkl', 'wb') as f:
+with open('geography.uw.test.txt.results.pkl', 'wb') as f:
     pickle.dump(df, f)
 
 df.head(10)
