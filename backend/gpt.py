@@ -8,7 +8,7 @@ import sqlite3
 class Gpt:
     def __init__(self):
         os.environ["OPENAI_API_KEY"] = ''
-        self.db_path = "C:/Users/anark/Desktop/Capstone/Implementation/Modulated_code/backend/GeoQuery.db"
+        self.db_path = "backend\GeoQuery.db"
         self.db = SQLDatabase.from_uri(f"sqlite:///{self.db_path}")
         self.llm = OpenAI(temperature = 0)
         self.db_chain = SQLDatabaseChain.from_llm(self.llm, self.db, return_sql = True, top_k = 0)
@@ -22,7 +22,7 @@ class Gpt:
         self.query1 = query + " Do not change the condition asked by the user." + "Reply like you are interacting with a human in a json format."
         self.response = self.db_chain(self.query1)
         self.answer=self.response["result"]
-        self.conn = sqlite3.connect(r'C:\Users\anark\Desktop\Capstone\SQLChatBot\backend\GeoQuery.db')
+        self.conn = sqlite3.connect(r'backend\GeoQuery.db')
         self.cursor = self.conn.cursor()
         self.generated_sql_output = self.cursor.execute(self.answer)
         self.generated_sql_result = self.generated_sql_output.fetchall()
