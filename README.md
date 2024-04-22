@@ -3,7 +3,7 @@
 ## About this repository
 This project aims to provide a simple way to run a Text-to-SQL like chatbot.
 
-You can use this project and with minor adjustments, create your own application for your database.
+You can use this project and with minor adjustments, create your own Text-to-SQL application for your database.
 
 
 ## Project specifications
@@ -19,6 +19,6 @@ You can use this project and with minor adjustments, create your own application
 1. Clone the repository to you local machine.
 2. Replace GeoQuery database with your own database in backend folder
 3. Open gpt.py and do the following changes:
-   3.1 Add OpenAI API Key.
-   3.2 Replace the GeoQuery database path with your own database path.
-   3.3 Update the prompts/queries as per your database.
+   - Add OpenAI API Key.
+   - Replace the GeoQuery database path with your own database path.
+   - Update the prompts/queries as per your database.
